@@ -1,0 +1,115 @@
+<nz-layout class="app-layout">
+    <nz-sider class="menu-sidebar"
+              nzCollapsible
+              nzWidth="256px"
+              nzBreakpoint="md"
+              [(nzCollapsed)]="isCollapsed"
+              [nzTrigger]="null">
+      <div class="sidebar-logo">
+        <img
+  nz-image
+      width="100px"
+      height="500px"
+      nzSrc="assets/images/ng.PNG"
+      alt="new access"/>
+          <h1>New access</h1>
+        
+      </div>
+      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+        <li nz-submenu  nzTitle="Produit APSYS"  nzIcon="unordered-list" nzTheme="outline">
+          <ul>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="/produit" >APSYS_dev_code</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <a>APSYS_pkb_pr4</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <a>APSYS_pr1</a>
+            </li>
+          </ul>
+        </li>
+        <li nz-submenu  nzTitle="Calendrier" routerLink="/calendar" nzIcon="calendar" ></li>
+        <li nz-submenu  nzTitle="Historique" nzIcon="history" >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a >APSYS_dev_code</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>APSYS_pkb_pr4</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>APSYS_pr1</a>
+          </li>
+        </ul>
+      </li>
+        <li nz-submenu  nzTitle="Configuration" nzIcon="unordered-list" nzTheme="outline">
+          
+              <ul>
+                <li nz-menu-item nzMatchRouter>
+                  <a routerLink="/user">Utilisateurs</a>
+                </li>
+                
+                <li nz-menu-item nzMatchRouter>
+                  <a routerLink="/profil">Profil</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+       
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <div class="app-header">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+              <i class="trigger"
+                 nz-icon
+                 [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+              ></i></span>
+  
+              <div class="menu">
+              
+              <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" >
+                <nz-avatar nzIcon="user"     nzSrc="assets/images/mariem.png"></nz-avatar>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <i nz-icon nzType="user" nzTheme="outline"></i>
+                  My profile
+                </button>
+                <button mat-menu-item >
+                  <i nz-icon nzType="setting" nzTheme="fill"></i>
+                  Settings
+                </button>
+                <button mat-menu-item routerLink="/login" >
+                  <i nz-icon nzType="logout" nzTheme="outline" > </i>
+                  Logout
+                </button>
+              </mat-menu></div>
+              <div class="notification-wrapper">
+                <!-- You can put an icon from Material Design icon or Fontawesome -->
+                <div class="notification-btn" >
+                  <span class="mdi mdi-bell"></span>
+                  <button mat-icon-button color="basic" (click)="openNotification(!showNotification)">
+                    <mat-icon [matBadge]="nbNotif" matBadgeColor="warn" [matBadgeHidden]="hidden">notifications</mat-icon>
+                  </button>
+                </div>
+                <div *ngIf="showNotification" class="notification-content" >
+                  <div class="notification-header">
+                    <span class="mdi mdi-settings"></span>
+                    <span class="label">Notifications</span>
+                  </div>
+                  <div>
+                    <mat-list *ngFor="let notif of notifications">
+                      <mat-list-item>{{notif.username}} Has been added </mat-list-item>
+                      <mat-divider></mat-divider>
+                    </mat-list>
+                  </div>
+                </div>
+              </div>
+        </div>
+       
+      </nz-header>
+      
+    </nz-layout>
+  </nz-layout>

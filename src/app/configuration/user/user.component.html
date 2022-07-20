@@ -1,0 +1,445 @@
+<nz-layout class="app-layout">
+    <nz-sider class="menu-sidebar"
+              nzCollapsible
+              nzWidth="256px"
+              nzBreakpoint="md"
+              [(nzCollapsed)]="isCollapsed"
+              [nzTrigger]="null">
+      <div class="sidebar-logo">
+        <img
+  nz-image
+      width="100px"
+      height="500px"
+      nzSrc="assets/images/ng.PNG"
+      alt="new access"/>
+          <h1>New access</h1>
+        
+      </div>
+      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+        <li nz-submenu  nzTitle="Produit APSYS" routerLink="/produit" nzIcon="unordered-list" nzTheme="outline">
+          <ul>
+            <li nz-menu-item nzMatchRouter>
+              <a >APSYS_dev_code</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <a>APSYS_pkb_pr4</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <a>APSYS_pr1</a>
+            </li>
+          </ul>
+        </li>
+        <li nz-submenu  nzTitle="Calendrier" routerLink="/calendar" nzIcon="calendar" ></li>
+        <li nz-submenu  nzTitle="Historique"routerLink="/history"   nzIcon="history" >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a >APSYS_dev_code</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>APSYS_pkb_pr4</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>APSYS_pr1</a>
+          </li>
+        </ul>
+      </li>
+        <li nz-submenu  nzTitle="Configuration" nzIcon="unordered-list" nzTheme="outline">
+          
+              <ul>
+                <li nz-menu-item nzMatchRouter>
+                  <a routerLink="/user">Utilisateurs</a>
+                </li>
+              
+                <li nz-menu-item nzMatchRouter>
+                  <a routerLink="/profil">Profil</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+       
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <div class="app-header">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+              <i class="trigger"
+                 nz-icon
+                 [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+              ></i>
+              <div class="menu">
+            
+                <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" >
+                  <nz-avatar nzIcon="user"    [nzSrc]="imageSrc"></nz-avatar>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item  routerLink="/profil">
+                    <i nz-icon nzType="user" nzTheme="outline"></i>
+                    My profile
+                  </button>
+ 
+                  <button mat-menu-item   (click)="Logout()" >
+                    <i nz-icon nzType="logout" nzTheme="outline" > </i>
+                    Logout
+                  </button>
+                  
+                </mat-menu></div>
+                
+          </span>
+          <div class="notification-wrapper">
+            <!-- You can put an icon from Material Design icon or Fontawesome -->
+            <div class="notification-btn" >
+              <span class="mdi mdi-bell"></span>
+              <button mat-icon-button color="basic" (click)="openNotification(!showNotification)">
+                 <i class="fa fa-bell"></i>
+                <span *ngIf="showNumerNotif" class="badge">{{nbNotif}}</span>
+
+              </button>
+            </div>
+            <div *ngIf="showNotification" class="notification-content" >
+
+             
+
+              <div class="dropdown-menu notification-ui_dd show" aria-labelledby="navbarDropdown">
+                <div class="notification-ui_dd-header">
+                  <h3 class="text-center">Notification</h3>
+                </div>
+                <div class="notification-ui_dd-content" *ngFor="let not of notifications">
+                  <a  class="notification-list ">
+                      <p>{{not.text}}</p> 
+                     <p>{{ not.avatar| date: "dd MMMM yyyy" }}</p>
+                     <br><br>
+                     <p>{{ not.username| date: "dd MMMM yyyy" }}</p>
+
+                    </a>
+
+
+
+
+
+                </div>
+
+              </div>
+                  </div>
+              </div>
+        </div>
+      </nz-header>
+      <nz-content>
+        <div class="inner-content">
+            <div class="add">
+          <button nz-button [nzType]="'primary'" [disabled]="Permission" (click)="showModal()"> <i nz-icon nzType="plus">  </i>Add User</button>
+        
+          <nz-modal [(nzVisible)]="isVisible" nzTitle="Add User" (nzOnCancel)="handleCancel()" >
+          <ng-container *nzModalContent>
+          <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+            <nz-form-item>
+              <nz-form-label >FirstName</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" >
+                <input nz-input formControlName="firstName" id="firstName" />
+              </nz-form-control> 
+              <div style="display: block; font-size: 15px; color:rgb(236, 23, 23)"  *ngIf="(registerForm.controls['firstName'].dirty || registerForm.controls['firstName'].touched) " >
+                <ng-container *ngIf="registerForm.controls['firstName'].errors?.['required'] ; then TemplatefirstNameRequired; else TemplatefirstNameInvalid"></ng-container>
+                <ng-template #TemplatefirstNameRequired>
+          
+                  firstName is required
+                </ng-template>
+                <ng-template #TemplatefirstNameInvalid>
+                  <ng-container *ngIf="registerForm.controls['firstName'].errors?.['pattern']">
+                    firstName must be at least 5 characters long and contain only letters,
+                     numbers, and underscores.
+                  </ng-container>
+                </ng-template>
+          
+              </div>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label >Last Name</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" >
+                <input nz-input formControlName="lastname" id="lastName" />
+              </nz-form-control> 
+              <div style="display: block; font-size: 15px; color:rgb(236, 23, 23)"  *ngIf="(registerForm.controls['lastname'].dirty || registerForm.controls['lastname'].touched) " >
+                <ng-container *ngIf="registerForm.controls['lastname'].errors?.['required'] ; then TemplateLastnameRequired; else TemplateLastnameInvalid"></ng-container>
+                <ng-template #TemplateLastnameRequired>
+          
+                  Lastname is required
+                </ng-template>
+                <ng-template #TemplateLastnameInvalid>
+                  <ng-container *ngIf="registerForm.controls['lastname'].errors?.['pattern']">
+                    Lastname must be at least 5 characters long and contain only letters,
+                     numbers, and underscores.
+                  </ng-container>
+                </ng-template>
+          
+              </div>
+          
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label >Password</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" >
+                <input nz-input formControlName="password" id="Password" />
+              </nz-form-control> 
+              <div style="display: block; font-size: 15px; color:rgb(223, 16, 16)"  *ngIf="(registerForm.controls['password'].dirty || registerForm.controls['password'].touched) " >
+                <ng-container *ngIf="registerForm.controls['password'].errors?.['required'] ; then TemplatePasswordRequired; else TemplatePasswordInvalid"></ng-container>
+                <ng-template #TemplatePasswordRequired>
+          
+                  Password is required
+                </ng-template>
+                <ng-template #TemplatePasswordInvalid>
+                  <ng-container *ngIf="registerForm.controls['password'].errors?.['pattern']">
+                    Password must contain at least one number and one uppercase and lowercase letter,
+                    and at least 8 or more characters.
+                    <br>
+                  </ng-container>
+                </ng-template>
+          
+              </div>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label >Username</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" >
+                <input nz-input formControlName="username" id="username" />
+              </nz-form-control> 
+              <div style="display: block; font-size: 15px; color:rgb(225, 19, 19)"  *ngIf="(registerForm.controls['username'].dirty || registerForm.controls['username'].touched) " >
+                <ng-container *ngIf="registerForm.controls['username'].errors?.['required'] ; then TemplateUsernameRequired; else TemplateUsernameInvalid"></ng-container>
+                <ng-template #TemplateUsernameRequired>
+          
+                  Username is required
+                </ng-template>
+                <ng-template #TemplateUsernameInvalid>
+                  <ng-container *ngIf="registerForm.controls['username'].errors?.['pattern']">
+                    Username must be at least 5 characters long and contain only letters,
+                     numbers, and underscores.
+                  </ng-container>
+                </ng-template>
+          
+              </div>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label >E-mail   </nz-form-label>
+         <nz-form-control [nzSm]="14" [nzXs]="24"  >
+        <input nz-input formControlName="email" id="email" />
+          </nz-form-control> 
+          <div style="display: block; font-size: 15px; color:rgb(235, 21, 21)"  *ngIf="(registerForm.controls['email'].dirty || registerForm.controls['email'].touched) " >
+            <ng-container *ngIf="registerForm.controls['email'].errors?.['required'] ; then TemplateEmailRequired; else TemplateEmailInvalid"></ng-container>
+            <ng-template #TemplateEmailRequired>
+      
+              Email is required   
+            </ng-template>
+            <ng-template #TemplateEmailInvalid>
+              <ng-container *ngIf="registerForm.controls['email'].errors?.['pattern']">
+                Email is invaild
+              </ng-container>
+            </ng-template>
+      
+          </div>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Equipe</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" >
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Team"   formControlName="Equipe">
+          <nz-option nzLabel="APSYS" nzValue="APSYS"></nz-option>
+          
+          <nz-option nzLabel="DBA" nzValue="DBA"></nz-option>
+          <nz-option nzLabel="QA" nzValue="QA"></nz-option>
+          <nz-option nzLabel="Service Desk" nzValue="Service Desk"></nz-option>
+        </nz-select>
+      </nz-form-control> 
+      <div style="display: block; font-size: 15px; color:rgb(225, 19, 19)"  *ngIf="(registerForm.controls['Equipe'].dirty || registerForm.controls['Equipe'].touched) " >
+        <ng-container *ngIf="registerForm.controls['Equipe'].errors?.['required'] ; then TemplateEquipeRequired; "></ng-container>
+        <ng-template #TemplateEquipeRequired>
+  
+          Equipe  is  required
+        </ng-template>
+ 
+  
+      </div>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Poste</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" >
+        <nz-select nzShowSearch nzAllowClear   formControlName="Post">
+          <nz-option nzLabel="Manager" nzValue="Manager"></nz-option>
+          
+          <nz-option nzLabel="Product Owner" nzValue="Product Owner
+          "></nz-option>
+          <nz-option nzLabel="Engineer" nzValue="Engineer"></nz-option>
+         
+        </nz-select>
+      </nz-form-control> 
+      <div style="display: block; font-size: 15px; color:rgb(225, 19, 19)"  *ngIf="(registerForm.controls['Post'].dirty || registerForm.controls['Post'].touched) " >
+        <ng-container *ngIf="registerForm.controls['Post'].errors?.['required'] ; then TemplatePostRequired; "></ng-container>
+        <ng-template #TemplatePostRequired>
+  
+          Post  is  required
+        </ng-template>
+ 
+  
+      </div>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label>Roles</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24" >
+        <nz-select nzShowSearch nzAllowClear   formControlName="roles">
+          <nz-option nzLabel="Admin" nzValue="Admin"></nz-option>
+          
+          <nz-option nzLabel="User" nzValue="User
+          "></nz-option>
+ 
+         
+        </nz-select>
+      </nz-form-control> 
+      <div style="display: block; font-size: 15px; color:rgb(225, 19, 19)"  *ngIf="(registerForm.controls['roles'].dirty || registerForm.controls['roles'].touched) " >
+        <ng-container *ngIf="registerForm.controls['roles'].errors?.['required'] ; then TemplaterolesRequired; "></ng-container>
+        <ng-template #TemplaterolesRequired>
+  
+          roles  is  required
+        </ng-template>
+ 
+  
+      </div>
+            </nz-form-item>
+            <nz-form-item nz-row class="register-area">
+              <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                <button class=" btn btn-fill btn-danger" type="submit" [disabled]="this.registerForm.invalid"  >Save</button>
+              </nz-form-control>
+            </nz-form-item>
+          </form>
+          
+
+            </ng-container>
+        </nz-modal> 
+        </div>
+
+<div class="container">
+  <div style="margin-top: 35px;">
+
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+    </mat-form-field>
+   
+    
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+    
+        <!-- id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+        </ng-container>
+        <!-- name Column -->
+        <ng-container matColumnDef="firstName ">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.firstName }} </td>
+        </ng-container>
+        <ng-container matColumnDef="roles ">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> roles </th>
+          <td mat-cell *matCellDef="let row"> {{row.firstName }} </td>
+        </ng-container>
+        <!-- last name Column -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.lastName}}</td>
+        </ng-container>
+    
+        <!-- email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+          <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+        </ng-container>
+    
+        <!-- equipe Column -->
+        <ng-container matColumnDef="equipe">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Equipe </th>
+          <td mat-cell *matCellDef="let row"> {{row.equipe}} </td>
+        </ng-container>
+          <!-- poste Column -->
+          <ng-container matColumnDef="poste">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Poste </th>
+            <td mat-cell *matCellDef="let row"> {{row.poste}} </td>
+          </ng-container>
+
+             <!-- Action Column -->
+             <ng-container matColumnDef="Action" >
+              <th mat-header-cell *matHeaderCellDef mat-sort-header > Action </th>
+              <td mat-cell *matCellDef="let row" > 
+               
+                
+                  <nz-modal [(nzVisible)]="isVisible2" nzTitle="Update User" (nzOnCancel)="handleCancel()" (nzOnOk)="updateUser()">
+                    <ng-container *nzModalContent>
+                    <form [formGroup]="userForm">
+                      <nz-form-item>
+                        <nz-form-label >Name</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24" >
+                          <input nz-input formControlName="firstName" id="firstName" />
+                        </nz-form-control> 
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label >Last Name</nz-form-label>
+                        <nz-form-control [nzSm]="14" [nzXs]="24" >
+                          <input nz-input formControlName="lastname" id="lastName" />
+                        </nz-form-control> 
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label nzRequired nzFor="email" >E-mail</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+                  <input nz-input formControlName="email" id="email" />
+                </nz-form-control> 
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label>Equipe</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" >
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a Team" formControlName="equipe">
+                    <nz-option nzLabel="APSYS" nzValue="APSYS"></nz-option>
+                    
+                    <nz-option nzLabel="DBA" nzValue="DBA"></nz-option>
+                    <nz-option nzLabel="QA" nzValue="QA"></nz-option>
+                    <nz-option nzLabel="Service Desk" nzValue="Service Desk"></nz-option>
+                  </nz-select>
+                </nz-form-control> 
+                      </nz-form-item>
+                      <nz-form-item>
+                        <nz-form-label>Poste</nz-form-label>
+                        
+
+                <nz-form-control [nzSm]="14" [nzXs]="24" >
+                  <nz-select nzShowSearch nzAllowClear nzPlaceHolder="" formControlName="poste">
+                    <nz-option nzLabel="Manager" nzValue="Manager"></nz-option>
+                    
+                    <nz-option nzLabel="Product Owner" nzValue="Product Owner
+                    "></nz-option>
+                    <nz-option nzLabel="Engineer" nzValue="Engineer"></nz-option>
+                   
+                  </nz-select>
+                </nz-form-control> 
+                      </nz-form-item>
+                    </form>
+                    
+          
+                      </ng-container>
+                  </nz-modal> 
+                
+                <button mat-icon-button  >
+                  <i  nz-icon nzType="delete" nzTheme="fill" class="icon_delete" (click)="deleteUser(row)"></i>
+                </button>
+              </td>
+            </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+    
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+    
+
+  </div>
+</div>
+    </div>
+      </nz-content> 
+    </nz-layout>
+  </nz-layout>

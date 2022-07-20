@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "7b565d21-5ff5-43a5-8372-c63cdffc5946"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -24,10 +27,18 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
-            "styles": [
+            "styles": ["node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/theme.less",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
+              
             ],
             "scripts": []
           },

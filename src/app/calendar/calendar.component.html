@@ -1,0 +1,380 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="256px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+      
+      <img
+      nz-image
+          width="100px"
+          height="500px"
+          nzSrc="assets/images/ng.PNG"
+          alt="new access"/>
+        <h1>New access</h1>
+      
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu  nzTitle="Produit APSYS" nzIcon="unordered-list"  nzTheme="outline">
+        <ul >
+          <li nz-menu-item nzMatchRouter >
+            <a routerLink="/produit"  >APSYS_dev_code</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>APSYS_pkb_pr4</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>APSYS_pr1</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu  nzTitle="Calendrier" nzIcon="calendar" ></li>
+      <li nz-submenu  nzTitle="Historique" routerLink="/history"  nzIcon="history" >
+      <ul>
+        <li nz-menu-item nzMatchRouter>
+          <a >APSYS_dev_code</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a>APSYS_pkb_pr4</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a>APSYS_pr1</a>
+        </li>
+      </ul>
+    </li>
+      <li nz-submenu  nzTitle="Configuration" nzIcon="unordered-list" nzTheme="outline">
+        
+            <ul>
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/user">Utilisateurs</a>
+              </li>
+             
+              <li nz-menu-item nzMatchRouter>
+                <a routerLink="/profil">Profil</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+     
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger"
+               nz-icon
+               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+            <div class="menu">
+            
+              <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" >
+                <nz-avatar nzIcon="user"   [nzSrc]="imageSrc"></nz-avatar>
+              </button>
+              
+              <mat-menu #menu="matMenu">
+                <div class="menu_color"> 
+                <button mat-menu-item routerLink="/profil">
+                  <i nz-icon nzType="user"  nzTheme="outline"></i>
+                  My profile
+                </button> 
+ 
+                <button mat-menu-item  (click)="Logout()"   >
+                  <i nz-icon nzType="logout" nzTheme="outline" > </i>
+                  Logout
+                </button></div>
+              </mat-menu></div>
+              <div class="notification-wrapper">
+                <!-- You can put an icon from Material Design icon or Fontawesome -->
+                <div class="notification-btn" >
+                  <span class="mdi mdi-bell"></span>
+                  <button mat-icon-button color="basic" (click)="openNotification(!showNotification)">
+                     <i class="fa fa-bell"></i>
+                    <span *ngIf="showNumerNotif" class="badge">{{nbNotif}}</span>
+ 
+                  </button>
+                </div>
+                <div *ngIf="showNotification" class="notification-content" >
+ 
+                 
+
+                  <div class="dropdown-menu notification-ui_dd show" aria-labelledby="navbarDropdown">
+                    <div class="notification-ui_dd-header">
+                      <h3 class="text-center">Notification</h3>
+                    </div>
+                    <div class="notification-ui_dd-content" *ngFor="let not of notifications">
+                      <a  class="notification-list ">
+                          <p>{{not.text}}</p> 
+                         <p>{{ not.avatar| date: "dd MMMM yyyy" }}</p>
+                         <br><br>
+                         <p>{{ not.username| date: "dd MMMM yyyy" }}</p>
+
+                        </a>
+ 
+ 
+ 
+ 
+ 
+                    </div>
+ 
+                  </div>
+                      </div>
+                  </div>
+               
+               
+        </span>
+      </div>
+    </nz-header>
+    <div class="calendar">
+    <nz-content>
+      <div class="inner-content">
+        <div class="row text-center">
+          <div class="col-md-4">
+            <div class="btn-group">
+              <div
+                class="btn btn-primary"
+                mwlCalendarPreviousView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="closeOpenMonthViewDay()"
+              >
+                Previous
+              </div>
+              <div
+                class="btn btn-outline-secondary"
+                mwlCalendarToday
+                [(viewDate)]="viewDate"
+              >
+                Today
+              </div>
+              <div
+                class="btn btn-primary"
+                mwlCalendarNextView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="closeOpenMonthViewDay()"
+              >
+                Next
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+          </div>
+          <div class="col-md-4">
+            <div class="btn-group">
+              <div
+                class="btn btn-primary"
+                (click)="setView(CalendarView.Month)"
+                [class.active]="view === CalendarView.Month"
+              >
+                Month
+              </div>
+              <div
+                class="btn btn-primary"
+                (click)="setView(CalendarView.Week)"
+                [class.active]="view === CalendarView.Week"
+              >
+                Week
+              </div>
+              <div
+                class="btn btn-primary"
+                (click)="setView(CalendarView.Day)"
+                [class.active]="view === CalendarView.Day"
+              >
+                Day
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div [ngSwitch]="view">
+          <mwl-calendar-month-view
+          
+            *ngSwitchCase="CalendarView.Month"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+            [activeDayIsOpen]="activeDayIsOpen"
+             (dayClicked)="dayClicked($event.day)"
+           
+
+            (eventTimesChanged)="eventTimesChanged($event)"
+          >
+          </mwl-calendar-month-view>
+          <mwl-calendar-week-view
+            *ngSwitchCase="CalendarView.Week"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+           
+            (eventTimesChanged)="eventTimesChanged($event)"
+          >
+          </mwl-calendar-week-view>
+          <mwl-calendar-day-view
+            *ngSwitchCase="CalendarView.Day"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+       
+            (eventTimesChanged)="eventTimesChanged($event)"
+          >
+          </mwl-calendar-day-view>
+        </div>
+        
+        <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+        
+        <br /><br /><br />
+        
+        <h3>
+          Edit delivery date
+         
+           
+        
+          <div class="clearfix"></div>
+        </h3>
+        
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Color</th>
+                <th>Starts at</th>
+                <th>Ends at</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+        
+            <tbody>
+              <tr *ngFor="let event of events">
+                <td>
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="event.title"
+                    disabled
+                    (keyup)="refresh.next()"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="color"
+                    [(ngModel)]="event!.color!.primary!"
+                    (change)="refresh.next()"
+                    disabled
+                  />
+                </td>
+                
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    mwlFlatpickr
+                    [(ngModel)]="event.start"
+                    (ngModelChange)="refresh.next()"
+                    [altInput]="true"
+                    disabled
+                    [convertModelValue]="true"
+                    [enableTime]="true"
+                    dateFormat="Y-m-dTH:i"
+                    altFormat="F j, Y H:i"
+                    placeholder="Not set"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    mwlFlatpickr
+                    [(ngModel)]="event.end"
+                    (ngModelChange)="refresh.next()"
+                    [altInput]="true"
+                    [convertModelValue]="true"
+                    disabled
+                    [enableTime]="true"
+                    dateFormat="Y-m-dTH:i"
+                    altFormat="F j, Y H:i"
+                    placeholder="Not set"
+                  />
+                </td>
+                <td>
+                  <button class="btn btn-danger"  [disabled]="Permission"  (click)="deleteEvent(event)">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <ng-template #modalContent let-close="close">
+          <div class="modal-header">
+            <h5 class="modal-title">New Event</h5>
+            <button type="button" class="close" (click)="close()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <form action="" method="post" [formGroup]="eventForm" (ngSubmit)="AddNewEvent()" >
+           <h6>Nom:</h6>   
+              <input nz-input placeholder="Nom Event"  nzSize="small" formControlName="eventName" minlength="4" maxlength="8" />
+              <div style="display: inline; font-size: 12px;"  *ngIf="(eventForm.controls['eventName'].dirty || eventForm.controls['eventName'].touched) " class="text-danger">
+              <ng-container *ngIf="eventForm.controls['eventName'].errors?.['required'] ; then TemplateEventRequired "></ng-container>
+                  <ng-template #TemplateEventRequired>
+                    Event name is required .
+                  </ng-template>
+ 
+                  </div>
+                  <h6> End  Event:</h6>
+                   <input
+                   class="form-control"
+                   type="text"
+                   mwlFlatpickr
+                   formControlName="eventend"
+                   (ngModelChange)="refresh.next()"
+                   [altInput]="true"
+                   [convertModelValue]="true"
+                    
+                   [enableTime]="true"
+                   dateFormat="Y-m-dTH:i"
+                   altFormat="F j, Y H:i"
+                   placeholder="Not set"
+                 />
+                 <div style="display: inline; font-size: 12px;"  *ngIf="(eventForm.controls['eventend'].dirty || eventForm.controls['eventend'].touched) " class="text-danger">
+                  <ng-container *ngIf="eventForm.controls['eventend'].errors?.['required'] ; then TemplateEventendRequired;   "></ng-container>
+                      <ng-template #TemplateEventendRequired>
+                        Event date is required .
+                      </ng-template>
+     
+                      </div>
+                  <div class="modal-footer">
+                    <button  type="submit" class="btn btn-outline-secondary" [disabled]="this.eventForm.invalid "     >
+                      OK
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="close()">
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+                </div>
+              </div>
+   
+        </ng-template>
+        
+    
+  
+      </div>
+    </nz-content>
+  </div>
+  </nz-layout>
+</nz-layout>
+
+
+
+
+
+
+

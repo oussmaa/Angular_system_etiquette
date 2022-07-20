@@ -1,0 +1,38 @@
+[nz-form] {
+  max-width: 600px;
+}
+
+.phone-select {
+  width: 70px;
+}
+
+.register-are {
+  margin-bottom: 8px;
+}
+.form {
+   
+  /* Uniquement centrer le formulaire sur la page */
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 600px;
+  /* Encadré pour voir les limites du formulaire */
+ padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 1em; 
+ }
+ h1{
+  font-size: 3em;
+  text-align: center;
+  color: rgb(7, 4, 4);
+  font-weight: 100;
+  text-transform: capitalize;
+  letter-spacing: 4px;
+  font-family: 'Roboto', sans-serif; }
+
+  body{
+    background-image: url('src\assets\images\imagenwa.png');
+ 
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+    }

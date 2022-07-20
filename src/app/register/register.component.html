@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register Page</title>
+   <!--Made with love by Mutiullah Samim -->
+
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+
+
+<div class="form" >
+  <h1>Sign Up</h1>
+  <form nz-form  [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="Nom" formControlName="name">
+
+    </div>
+    <div>
+      <div style="display: block; font-size: 15px; color:rgb(255, 205, 205)"  *ngIf="(registerForm.controls['name'].dirty || registerForm.controls['name'].touched) " >
+        <ng-container *ngIf="registerForm.controls['name'].errors?.['required'] ; then TemplateNameRequired; else TemplateNameInvalid"></ng-container>
+        <ng-template #TemplateNameRequired>
+
+          Name is required
+        </ng-template>
+        <ng-template #TemplateNameInvalid>
+          <ng-container *ngIf="registerForm.controls['name'].errors?.['pattern']">
+            name must be at least 5 characters long and contain only letters,
+             numbers, and underscores.
+          </ng-container>
+        </ng-template>
+
+      </div>
+  </div>
+
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-user"></i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="Prenom" formControlName="lastname">
+
+    </div>
+    <div style="display: block; font-size: 15px; color:rgb(255, 205, 205)"  *ngIf="(registerForm.controls['lastname'].dirty || registerForm.controls['lastname'].touched) " >
+      <ng-container *ngIf="registerForm.controls['lastname'].errors?.['required'] ; then TemplateLastnameRequired; else TemplateLastnameInvalid"></ng-container>
+      <ng-template #TemplateLastnameRequired>
+
+        Lastname is required
+      </ng-template>
+      <ng-template #TemplateLastnameInvalid>
+        <ng-container *ngIf="registerForm.controls['lastname'].errors?.['pattern']">
+          Lastname must be at least 5 characters long and contain only letters,
+           numbers, and underscores.
+        </ng-container>
+      </ng-template>
+
+    </div>
+
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-at"></i></span>
+      </div>
+      <input type="email" class="form-control" placeholder="Email" formControlName="email">
+
+    </div>
+    <div style="display: block; font-size: 15px; color:rgb(255, 205, 205)"  *ngIf="(registerForm.controls['email'].dirty || registerForm.controls['email'].touched) " >
+      <ng-container *ngIf="registerForm.controls['email'].errors?.['required'] ; then TemplateEmailRequired; else TemplateEmailInvalid"></ng-container>
+      <ng-template #TemplateEmailRequired>
+
+        Email is required
+      </ng-template>
+      <ng-template #TemplateEmailInvalid>
+        <ng-container *ngIf="registerForm.controls['email'].errors?.['pattern']">
+          Email is ivaild
+        </ng-container>
+      </ng-template>
+
+    </div>
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-key"></i></span>
+      </div>
+      <input type="password" class="form-control" placeholder="Mot de passe" formControlName="password">
+
+    </div>
+    <div style="display: block; font-size: 15px; color:rgb(255, 205, 205)"  *ngIf="(registerForm.controls['password'].dirty || registerForm.controls['password'].touched) " >
+      <ng-container *ngIf="registerForm.controls['password'].errors?.['required'] ; then TemplatePasswordRequired; else TemplatePasswordInvalid"></ng-container>
+      <ng-template #TemplatePasswordRequired>
+
+        Password is required
+      </ng-template>
+      <ng-template #TemplatePasswordInvalid>
+        <ng-container *ngIf="registerForm.controls['password'].errors?.['pattern']">
+          Password must contain at least one number and one uppercase and lowercase letter,
+          and at least 8 or more characters.
+          <br>
+        </ng-container>
+      </ng-template>
+
+    </div>
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-key"></i></span>
+      </div>
+      <input type="password" class="form-control" placeholder="Confirmer mot de passe" formControlName="confirmPassword">
+
+    </div>
+    <div style="display: block; font-size: 15px; color:rgb(255, 205, 205)"  *ngIf="(registerForm.controls['confirmPassword'].dirty || registerForm.controls['confirmPassword'].touched) " >
+      <ng-container *ngIf="registerForm.controls['confirmPassword'].errors?.['required'] ; then TemplateconfirmPasswordRequired; else TemplateconfirmPasswordInvalid"></ng-container>
+      <ng-template #TemplateconfirmPasswordRequired>
+
+        confirmPassword is required
+      </ng-template>
+      <ng-template #TemplateconfirmPasswordInvalid>
+        <ng-container *ngIf="registerForm.controls['confirmPassword'].errors?.['pattern']">
+          confirmPassword must contain at least one number and one uppercase and lowercase letter,
+          and at least 8 or more characters.
+          <br>
+        </ng-container>
+      </ng-template>
+
+    </div>
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-users"></i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="Username" formControlName="username">
+
+    </div>
+    <div style="display: block; font-size: 15px; color:rgb(255, 205, 205)"  *ngIf="(registerForm.controls['username'].dirty || registerForm.controls['username'].touched) " >
+      <ng-container *ngIf="registerForm.controls['username'].errors?.['required'] ; then TemplateUsernameRequired; else TemplateUsernameInvalid"></ng-container>
+      <ng-template #TemplateUsernameRequired>
+
+        Username is required
+      </ng-template>
+      <ng-template #TemplateUsernameInvalid>
+        <ng-container *ngIf="registerForm.controls['username'].errors?.['pattern']">
+          Username must be at least 5 characters long and contain only letters,
+           numbers, and underscores.
+        </ng-container>
+      </ng-template>
+
+    </div>
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-users"></i></span>
+      </div>
+      <select aria-placeholder="select team"  class="form-control" formControlName="Equipe" >
+       
+
+        <option value="APSYS">APSYS</option>
+        <option value="DBA">DBA</option>
+        <option value="QA">QA</option>
+        <option value="Service Desk">Service Desk</option>
+
+           
+ 
+      </select>
+
+
+    </div>
+    <div style="display: block; font-size: 15px; color:rgb(225, 19, 19)"  *ngIf="(registerForm.controls['Equipe'].dirty || registerForm.controls['Equipe'].touched) " >
+      <ng-container *ngIf="registerForm.controls['Equipe'].errors?.['required'] ; then TemplateEquipeRequired; "></ng-container>
+      <ng-template #TemplateEquipeRequired>
+
+        Equipe  is  required
+      </ng-template>
+
+
+    </div>
+    <div class="input-group form-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-users"></i></span>
+      </div>
+      <select aria-placeholder="select team"  class="form-control" formControlName="Post" >
+       
+
+        <option value="Manager">Manager</option>
+        <option value="Product Owner">Product Owner</option>
+        <option value="Engineer">Engineer</option>
+ 
+ 
+ 
+      </select>
+  
+      
+    </div>
+    <div style="display: block; font-size: 15px; color:rgb(225, 19, 19)"  *ngIf="(registerForm.controls['Post'].dirty || registerForm.controls['Post'].touched) " >
+      <ng-container *ngIf="registerForm.controls['Post'].errors?.['required'] ; then TemplatePostRequired; "></ng-container>
+      <ng-template #TemplatePostRequired>
+
+        Equipe  is  required
+      </ng-template>
+
+
+    </div>
+
+      <nz-form-item nz-row class="register-area">
+        <nz-form-control [nzSpan]="14" [nzOffset]="6">
+          <button nz-button nzType="primary" [disabled]="this.registerForm.invalid">Register</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
+  </div></body>

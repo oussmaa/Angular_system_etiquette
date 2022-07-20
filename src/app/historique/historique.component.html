@@ -1,0 +1,202 @@
+<nz-layout class="app-layout">
+    <nz-sider class="menu-sidebar"
+              nzCollapsible
+              nzWidth="256px"
+              nzBreakpoint="md"
+              [(nzCollapsed)]="isCollapsed"
+              [nzTrigger]="null">
+      <div class="sidebar-logo">
+        <img 
+  nz-image
+      width="100px"
+      height="500px"
+      nzSrc="assets/images/ng.PNG"
+      alt="new access"/>
+          <h1 >New access</h1>
+        
+      </div>
+      <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed"> 
+        <li nz-submenu  nzTitle="Produit APSYS" nzIcon="unordered-list" nzTheme="outline">
+          <ul>
+            <li nz-menu-item nzMatchRouter>
+              <a routerLink="/produit">APSYS_dev_code</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <a>APSYS_pkb_pr4</a>
+            </li>
+            <li nz-menu-item nzMatchRouter>
+              <a>APSYS_pr1</a>
+            </li>
+          </ul>
+        </li>
+        <li nz-submenu  nzTitle="Calendrier" routerLink="/calendar" nzIcon="calendar" ></li>
+        <li nz-submenu  nzTitle="Historique"routerLink="/history"   nzIcon="history" >
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/produit">APSYS_dev_code</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>APSYS_pkb_pr4</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a>APSYS_pr1</a>
+          </li>
+        </ul>
+      </li>
+        <li nz-submenu  nzTitle="Configuration" nzIcon="unordered-list" nzTheme="outline">
+          
+              <ul>
+                <li nz-menu-item nzMatchRouter>
+                  <a routerLink="/user">Utilisateurs</a>
+                </li>
+          
+                <li nz-menu-item nzMatchRouter>
+                  <a routerLink="/profil">Profil</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+       
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+        <div class="app-header">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+              <i class="trigger"
+                 nz-icon
+                 [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+              ></i>
+              
+          </span>
+         
+          <button nz-button nzType="primary" routerLink="/scripts" class="boutton" >  Génération des scripts </button> 
+          <button clas="test" nz-button nzType="primary" class="boutton" routerLink="/test" >  Test QA </button> 
+             <button clas="livraison" nz-button nzType="primary" routerLink="/livraison" class="boutton"  >   Livraison </button> 
+   
+             
+             
+             <div class="menu">
+            
+              <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" >
+                <nz-avatar nzIcon="user"     [nzSrc]="imageSrc"></nz-avatar>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item routerLink="/profil">
+                  <i nz-icon nzType="user"  nzTheme="outline"></i>
+                  My profile
+                </button>
+   
+                <button mat-menu-item   (click)="Logout()" >
+                    <i nz-icon nzType="logout" nzTheme="outline" > </i>
+                    Logout
+                  </button>>
+              </mat-menu></div>
+              <div class="notification-wrapper">
+                <!-- You can put an icon from Material Design icon or Fontawesome -->
+                <div class="notification-btn" >
+                  <span class="mdi mdi-bell"></span>
+                  <button mat-icon-button color="basic" (click)="openNotification(!showNotification)">
+                     <i class="fa fa-bell"></i>
+                    <span *ngIf="showNumerNotif" class="badge">{{nbNotif}}</span>
+ 
+                  </button>
+                </div>
+                <div *ngIf="showNotification" class="notification-content" >
+ 
+                 
+
+                  <div class="dropdown-menu notification-ui_dd show" aria-labelledby="navbarDropdown">
+                    <div class="notification-ui_dd-header">
+                      <h3 class="text-center">Notification</h3>
+                    </div>
+                    <div class="notification-ui_dd-content" *ngFor="let not of notifications">
+                      <a  class="notification-list ">
+                          <p>{{not.text}}</p> 
+                         <p>{{ not.avatar| date: "dd MMMM yyyy" }}</p>
+                         <br><br>
+                         <p>{{ not.username| date: "dd MMMM yyyy" }}</p>
+
+                        </a>
+ 
+ 
+ 
+ 
+ 
+                    </div>
+ 
+                  </div>
+                      </div>
+                  </div>
+        </div>
+      </nz-header>
+      <nz-content> 
+         
+        <nz-modal [(nzVisible)]="isVisible" nzTitle="Add Livraison" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+          <ng-container *nzModalContent>
+          <form [formGroup]="LivraisonForm">
+            <nz-form-item>
+              <nz-form-label >Version</nz-form-label>
+              <nz-form-control [nzSm]="14" [nzXs]="24" >
+                <input nz-input formControlName="version" id="version" />
+              </nz-form-control> 
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label >Date de Livraion</nz-form-label>
+              <nz-date-picker formControlName="date_livraison" id="date_livraison" ></nz-date-picker>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label  >Date de Génération</nz-form-label>
+              <nz-date-picker formControlName="date_generation" id="date_generation" ></nz-date-picker>
+  
+            </nz-form-item>
+           
+            <nz-form-item>
+              <nz-form-label>Etat</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24"  >
+        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="etat"  formControlName="etat" id="etat">
+          <nz-option  nzLabel="En cours" nzValue="En cours"></nz-option>
+          
+          <nz-option nzLabel="Terminer" nzValue="Terminer" ></nz-option>
+         
+        </nz-select>
+      </nz-form-control> 
+            </nz-form-item>
+          </form>
+          
+  
+            </ng-container>
+        </nz-modal> 
+        <div class="inner-content" >
+           
+            
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+               
+              <ng-container matColumnDef="version">
+              <th mat-header-cell *matHeaderCellDef>Version</th>
+              <td mat-cell *matCellDef="let row">{{row.version}}</td>
+              </ng-container>
+                <!-- Date Livrain Column -->
+                <ng-container matColumnDef="date_livraison">
+                  <th mat-header-cell *matHeaderCellDef>Date de Livraison</th>
+                  <td mat-cell *matCellDef="let row">{{row.date_livraison}}</td>
+                </ng-container>
+              
+                
+              
+ 
+              
+  <!-- Action Column -->
+ 
+  
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+     
+  
+  
+  
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
