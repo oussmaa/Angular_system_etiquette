@@ -14,21 +14,23 @@ import { NotificationComponent } from './notification/notification.component';
 import { TestComponent } from './produit/test/test.component';
 import { AutGardGuard } from './Shared/aut-gard.guard';
 import { HistoriqueComponent } from './historique/historique.component';
+import { ProblemComponent } from './problem/problem.component';
 
 
 const routes: Routes = [
   {path:'',pathMatch:'full',redirectTo:'/login'},
-  {path:'login',component:LoginComponent },
-  {path:'register',component:RegisterComponent},
-  {path:'calendar',component:CalendarComponent },
-  {path:'user',component:UserComponent  },
-  {path:'history',component:HistoriqueComponent  },
-  {path:'profil',component:ProfilComponent },
-  {path:'scripts',component:ScriptsComponent },
-  {path:'produit',component:ProduitComponent },
-   {path:'livraison',component:LivraisonComponent },
+  {path:'login',component:LoginComponent } ,
+  {path:'register',component:RegisterComponent },
+  {path:'calendar',component:CalendarComponent ,canActivate: [AutGardGuard]},
+  {path:'user',component:UserComponent ,canActivate: [AutGardGuard] },
+  {path:'history',component:HistoriqueComponent ,canActivate: [AutGardGuard] },
+  {path:'profil',component:ProfilComponent,canActivate: [AutGardGuard] },
+  {path:'scripts',component:ScriptsComponent,canActivate: [AutGardGuard] },
+  {path:'produit',component:ProduitComponent ,canActivate: [AutGardGuard]},
+   {path:'livraison',component:LivraisonComponent,canActivate: [AutGardGuard]},
   {path:'notif',component:NotificationComponent },
  {path:'test',component:TestComponent },
+ {path:'Problem',component:ProblemComponent,canActivate: [AutGardGuard]},
  
   //{ path: '', pathMatch: 'full', redirectTo: '/welcome' },
   //{ path: 'welcome', loadChildren: () => import('./pages/welcome/welcome.module').then(m => m.WelcomeModule) }

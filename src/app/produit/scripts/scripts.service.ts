@@ -51,7 +51,9 @@ export class ScriptsService {
     updateLivrasonTest(id: any,data:any):Observable<any>{
       return this.http.put<any>("http://localhost:8065/api/Livraison/updateTest/"+id,data)}
 
-
+      saveproblem(problem:any):Observable<any>{ 
+      return this.http.post<any>("http://localhost:8065/api/user/addproblem",problem);
+      }
 
       updateLivrasonLiv(id: any,data:any):Observable<any>{
         return this.http.put<any>("http://localhost:8065/api/Livraison/updateLivraison/"+id,data)}

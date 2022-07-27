@@ -32,17 +32,19 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class ScriptsComponent implements OnInit {
   isVisible = false;
+  visibleProblem=false;
   LivraisonForm !: FormGroup;
+  ProblemForm!:FormGroup;
   isCollapsed = false;
   etat!:FormControl;
   registerForm!:FormGroup;
   script:any;
   Permission:any;
   showNumerNotif:boolean=true;
-
+  Version:any;
   test:boolean=false;
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['version', 'date_livraison','etat', 'action'  ];
+  displayedColumns: string[] = ['version', 'date_livraison','etat', 'action','Alert_Problem'  ];
   public nbNotif:number=0 ;
   public notifications: Array<Notification> = [];
   public showNotification: boolean = false ;
@@ -63,6 +65,20 @@ export class ScriptsComponent implements OnInit {
    @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private toast: NgToastService,public ser:ApiService, private formBuilder : FormBuilder ,public router:Router, public stompService: StompService, private api : ScriptsService,private i18n: NzI18nService) {            
+ 
+ 
+    this.ProblemForm = new FormGroup({
+      object: new FormControl(),
+      description: new FormControl()
+  });
+ 
+  this.ProblemForm = this.formBuilder.group({
+     
+    object : ['',Validators.required ],
+    description : ['',Validators.required],
+ 
+    
+  })
   }
   getImage()
   {
@@ -162,6 +178,12 @@ this.api.updateLivrason(id.id,data).subscribe(
   getWeek(result: Date): void {
     console.log('week: ', getISOWeek(result));
   }
+
+  openProblem(event:any,id:any)
+  {
+
+  }
+
   openSuccess(event:any,id:any) {
     if (id.etat=="Terminer")
     {
@@ -192,6 +214,10 @@ this.api.updateLivrason(id.id,data).subscribe(
     this.i18n.setLocale(this.isEnglish ? zh_CN : en_US);
     this.isEnglish = !this.isEnglish;
   }
+  showModalProblem(row:any): void {
+    this.Version=row.version;
+    this.visibleProblem = true;
+  }
   showModal(): void {
     this.isVisible = true;
   }
@@ -200,8 +226,42 @@ this.api.updateLivrason(id.id,data).subscribe(
     console.log('Button cancel clicked!');
     this.isVisible = false;
   }
+  handleCancelProblem():void{
+this.visibleProblem=false;
+  }
+  handleOkProblem():void{
+if (this.ProblemForm.invalid)
+{
+  alert('Please Check Error');
+}
+else{
+  var object=this.ProblemForm.controls['object'].value;
+  var descr=this.ProblemForm.controls['description'].value;
+ 
+var problem={
+"text": descr,
+"object":object,
+"usernameuser":this.user.username,
+"version":this.Version,
+"date":""
 
 
+}
+
+  this.api.saveproblem(problem)
+  .subscribe({
+    next:(res)=>{
+      alert("Problem added successfully");
+      this.ProblemForm.reset();
+      this.visibleProblem=false;
+ 
+    },
+    error:()=>{
+      alert("Error while adding the Problem")
+    }
+  })
+}
+  }
   deleteScripts(scripts: Scripts):void {
     if(confirm('Are you sure to delete Version'))
     this.api.deleteScripts(scripts).subscribe(

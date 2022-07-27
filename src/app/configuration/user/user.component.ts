@@ -39,7 +39,7 @@ export class UserComponent implements OnInit {
   nameAndLastnamePattern = "^[a-zA-Z_]{5,}$";
   emailPattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$";
   passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  displayedColumns: string[] = ['id' , 'firstName ', 'lastName', 'email','equipe', 'poste', 'Action'];
+  displayedColumns: string[] = ['id' , 'firstName ', 'lastName', 'email','equipe', 'poste', 'Action','Permission','Photo'];
   dataSource!: MatTableDataSource<any>;
  
   public nbNotif:number=0 ;
@@ -96,6 +96,16 @@ export class UserComponent implements OnInit {
               
             
               } 
+
+              changeEtat(event:any,row:any)
+              {
+                console.log(event)
+                console.log(row)
+                this.api.updateUser(row.valid,row.id).subscribe(data=> console.log('data',data))
+
+              }
+
+
               submitForm(): void {
                 if (this.registerForm.invalid){
                   this.registerForm.markAllAsTouched();
@@ -119,7 +129,8 @@ export class UserComponent implements OnInit {
                   "email":email,
                    "role":roles,
                    "password":password,
-                   "imageUrl":""
+                   "imageUrl":"",
+                   "valid":false
                   }
                   console.log(this.user)
                    this.api.postUser(this.user)
@@ -223,9 +234,9 @@ alert("Don't Have Permission ")
   updateUser(){
     console.log(this.Id)
     this.userForm.get('id')?.setValue(this.Id)
-   this.api.updateUser(this.userForm.value,this.Id).subscribe(data=> console.log('data',data))
- this.isVisible2=false;
-this.getAllUser();
+    this.api.updateUser(this.userForm.value,this.Id).subscribe(data=> console.log('data',data))
+    this.isVisible2=false;
+   this.getAllUser();
 }
 
 

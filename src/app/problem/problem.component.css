@@ -313,21 +313,16 @@
       font-weight: 500;
     }
   
-    .row{
-      align-items: stretch;
-    
-      
-      
-     
-     
-    }
-    .card {
-      /*float: left;*/
-      
-       
-      margin-bottom: 2rem;
-      border: 0;
-  
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 25px;
+      background-color: #8eb5f4;
     }
     
-  
+    /* Clearfix (clear floats) */
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }

@@ -25,6 +25,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../services/api.service';
+import { NzSelectSizeType } from 'ng-zorro-antd/select';
+import { User } from '../configuration/user/user';
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -54,8 +56,10 @@ export class CalendarComponent implements OnInit {
    Permission:any;
    eventForm!: FormGroup;
    eventName!:FormControl;
+   selectedValue:any=null;
    eventend!:FormControl;
    showNumerNotif:boolean=true;
+   public userList : User[]=[];
    eventPattern = "[a-zA-z]*$";
    NewDateEvent:any;
   isVisible = false;
@@ -71,7 +75,11 @@ export class CalendarComponent implements OnInit {
     action: string;
     event: CalendarEvent;
   };
-
+  listOfOption: Array<{ label: string; value: string }> = [];
+  size: NzSelectSizeType = 'default';
+  singleValue = 'a10';
+  multipleValue = ['a10', 'c12'];
+  tagValue = ['a10', 'c12', 'tag'];
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -106,6 +114,8 @@ export class CalendarComponent implements OnInit {
       eventName: ['', [Validators.required,Validators.maxLength(8),Validators.minLength(4)]],
 
       eventend: ['', [Validators.required ]],
+      username: ['', [Validators.required ]],
+
 
     })
   }
@@ -127,12 +137,14 @@ export class CalendarComponent implements OnInit {
     }else{
       let ev=this.eventForm.controls['eventName'].value;
       let evend=this.eventForm.controls['eventend'].value;
+      let usern=this.eventForm.controls['username'].value;
 
     this.NewEvent ={
       title: ev,
       start: startOfDay(this.NewDateEvent),
       end: endOfDay(evend),
       color:'#FF0000',
+      username:usern
     }
     this.services.postEvent(this.NewEvent)
       .subscribe({
@@ -264,14 +276,25 @@ export class CalendarComponent implements OnInit {
       this.nbNotif=this.notifications.length;
     });
   }
+  getAllUser(){
+    this.api.getUser()
+    .subscribe((res)=>{
+      this.userList=res;
+    })
+  } 
   ngOnInit(): void {
     this.Permission=JSON.parse(localStorage.getItem('Permission') || '{}'); 
-
+this.getAllUser();
     this.get5LastNotifications();
     this.getImage();
     this.getAllEvent();
     this.user = JSON.parse(localStorage.getItem('user') || '{}'); 
-    console.log(this.user.accessToken)
+   
+
+
+
+ 
+ 
   }
 
 

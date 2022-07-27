@@ -31,17 +31,9 @@ nz-image
       </li>
       <li nz-submenu  nzTitle="Calendrier" routerLink="/calendar" nzIcon="calendar" ></li>
       <li nz-submenu  nzTitle="Historique"routerLink="/history"   nzIcon="history" >
-      <ul>
-        <li nz-menu-item nzMatchRouter>
-          <a routerLink="/produit">APSYS_dev_code</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <a>APSYS_pkb_pr4</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <a>APSYS_pr1</a>
-        </li>
-      </ul>
+        <li nz-submenu  nzTitle="Problem"routerLink="/Problem"   nzIcon="inbox" >
+
+ 
     </li>
       <li nz-submenu  nzTitle="Configuration" nzIcon="unordered-list" nzTheme="outline">
         
@@ -194,9 +186,21 @@ nz-image
               <ng-container matColumnDef="etat">
                 <th mat-header-cell *matHeaderCellDef>Etat</th>
                 <td mat-cell *matCellDef="let row" class="en_cours" class="terminer">
+                 
+                  <img *ngIf="row.etat=='Terminer'"
+                  nz-image
+                      width="20px"
+                      height="20px"
+                      nzSrc="assets/images/check.png"
+                      alt="new access"/>
+                      &nbsp;&nbsp;&nbsp;
+                 
                   <nz-select  (ngModelChange)="changeEtat($event,row)" [disabled]="Permission" [(ngModel)]="row.etat">
+                  
                     <nz-option nzValue="Terminer" nzLabel="Terminer"></nz-option>
                     <nz-option nzValue="En cours" nzLabel="En cours"></nz-option>
+                    <nz-option nzValue="En Attente" nzLabel="En Attente"></nz-option>
+
                    </nz-select>
                   </td>
               </ng-container>

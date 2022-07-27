@@ -47,7 +47,8 @@ this.user={
       "email":email,
       "role":"User",
        "password":password,
-       "imageUrl":""
+       "imageUrl":"",
+       "valid":false
       }
        this.service.postUser(this.user)
        .subscribe(

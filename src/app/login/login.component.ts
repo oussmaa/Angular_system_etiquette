@@ -31,20 +31,30 @@ export class LoginComponent implements OnInit {
          .subscribe(
            res => {
             localStorage.setItem('user',JSON.stringify(res));
+            if(res.valid==true)
+            {
+
+         
          if(res.roles=="User")
          {
           localStorage.setItem('Permission',JSON.stringify(true));
 
          }
+       
          else{
           localStorage.setItem('Permission',JSON.stringify(false));
 
          }
-            this.router.navigate(['/scripts'])
+         this.router.navigate(['/scripts'])
+        }
+        else{
+          alert("User Not Have Permission")
+
+        }
+          
          
            },
             err=>{
-             alert("Password Or Username incorrect")
            }
          );
     }

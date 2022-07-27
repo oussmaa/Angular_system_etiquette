@@ -7,7 +7,7 @@
               [nzTrigger]="null">
       <div class="sidebar-logo">
         <img 
-  nz-image
+	nz-image
       width="100px"
       height="500px"
       nzSrc="assets/images/ng.PNG"
@@ -31,8 +31,9 @@
         </li>
         <li nz-submenu  nzTitle="Calendrier" routerLink="/calendar" nzIcon="calendar" ></li>
         <li nz-submenu  nzTitle="Historique"routerLink="/history"   nzIcon="history" >
-          <li nz-submenu  nzTitle="Problem"routerLink="/Problem"   nzIcon="inbox" >
-
+         <li nz-submenu  nzTitle="Problem"routerLink="/Problem"   nzIcon="inbox" >
+       
+ 
       </li>
         <li nz-submenu  nzTitle="Configuration" nzIcon="unordered-list" nzTheme="outline">
           
@@ -42,7 +43,7 @@
                 </li>
           
                 <li nz-menu-item nzMatchRouter>
-                  <a routerLink="/profil">Profil</a>
+                  <a  routerLink="/profil">Profil</a>
                 </li>
               </ul>
             </li>
@@ -63,9 +64,9 @@
           <button nz-button nzType="primary" routerLink="/scripts" class="boutton" >  Génération des scripts </button> 
           <button clas="test" nz-button nzType="primary" class="boutton" routerLink="/test" >  Test QA </button> 
              <button clas="livraison" nz-button nzType="primary" routerLink="/livraison" class="boutton"  >   Livraison </button> 
-   
-             
-             
+ 
+            
+            
              <div class="menu">
             
               <button mat-mini-fab color="primary" [matMenuTriggerFor]="menu" >
@@ -76,11 +77,10 @@
                   <i nz-icon nzType="user"  nzTheme="outline"></i>
                   My profile
                 </button>
-   
                 <button mat-menu-item   (click)="Logout()" >
-                    <i nz-icon nzType="logout" nzTheme="outline" > </i>
-                    Logout
-                  </button>>
+                  <i nz-icon nzType="logout" nzTheme="outline" > </i>
+                  Logout
+                </button>
               </mat-menu></div>
               <div class="notification-wrapper">
                 <!-- You can put an icon from Material Design icon or Fontawesome -->
@@ -120,74 +120,25 @@
                   </div>
         </div>
       </nz-header>
-      <nz-content> 
-         
-        <nz-modal [(nzVisible)]="isVisible" nzTitle="Add Livraison" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
-          <ng-container *nzModalContent>
-          <form [formGroup]="LivraisonForm">
-            <nz-form-item>
-              <nz-form-label >Version</nz-form-label>
-              <nz-form-control [nzSm]="14" [nzXs]="24" >
-                <input nz-input formControlName="version" id="version" />
-              </nz-form-control> 
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label >Date de Livraion</nz-form-label>
-              <nz-date-picker formControlName="date_livraison" id="date_livraison" ></nz-date-picker>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-label  >Date de Génération</nz-form-label>
-              <nz-date-picker formControlName="date_generation" id="date_generation" ></nz-date-picker>
-  
-            </nz-form-item>
-           
-            <nz-form-item>
-              <nz-form-label>Etat</nz-form-label>
-      <nz-form-control [nzSm]="14" [nzXs]="24"  >
-        <nz-select nzShowSearch nzAllowClear nzPlaceHolder="etat"  formControlName="etat" id="etat">
-          <nz-option  nzLabel="En cours" nzValue="En cours"></nz-option>
-          
-          <nz-option nzLabel="Terminer" nzValue="Terminer" ></nz-option>
-         
-        </nz-select>
-      </nz-form-control> 
-            </nz-form-item>
-          </form>
-          
-  
-            </ng-container>
-        </nz-modal> 
-        <div class="inner-content" >
-           
-            
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-               
-              <ng-container matColumnDef="version">
-              <th mat-header-cell *matHeaderCellDef>Version</th>
-              <td mat-cell *matCellDef="let row">{{row.version}}</td>
-              </ng-container>
-                <!-- Date Livrain Column -->
-                <ng-container matColumnDef="date_livraison">
-                  <th mat-header-cell *matHeaderCellDef>Date de Livraison</th>
-                  <td mat-cell *matCellDef="let row">{{row.date_livraison}}</td>
-                </ng-container>
-              
-                
-              
- 
-              
-  <!-- Action Column -->
- 
-  
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-     
-  
-  
-  
+      <nz-content>
+        <div class="row" >
+          <div class="column"*ngFor="let prob of ProblemList;" >
+            <img src="assets/images/problem.jpeg" alt="Snow" style="width:100%">
+            <h6 style="text-decoration: none;">{{prob.object}}</h6>
+            <p class="tm-pt-10" style="color:white ;">
+              {{prob.text}}
+           </p>
+           <div class="d-flex justify-content-between tm-pt-45">
+            <span class="tm-color-primary" style="  text-transform: uppercase;
+            color: #e30f1d;">{{prob.usernameuser}}</span>
+            <span class="tm-color-primary" style="  text-transform: uppercase;
+            color: #380e8b;">{{ prob.date| date: "dd MMMM yyyy" }}</span>
         </div>
-      </nz-content>
-    </nz-layout>
-  </nz-layout>
+        <hr>
+          </div>
+     
+ 
+        </div>
+    </nz-content>
+</nz-layout>
+</nz-layout>

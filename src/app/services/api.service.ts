@@ -33,6 +33,22 @@ export class ApiService {
   getNotif():Observable<any>{
     return this.http.get<any>("http://localhost:8065/api/LastNotifications");
   }
+
+  getProblem():Observable<any>{
+    return this.http.get<any>("http://localhost:8065/api/user/GetAllProblem");
+  }
+
+  getUserAndAdmin():Observable<any>{
+    return this.http.get<any>("http://localhost:8065/api/user/GetUserAndAdmin");
+  }
+
+  getEventByUsername(username:any):Observable<any>{
+    return this.http.get<any>("http://localhost:8065/api/event/findEventByusername/"+username);
+  }
+  getetatlivraison():Observable<any>{
+    return this.http.get<any>("http://localhost:8065/api/event/GetAllTiketTerminer/");
+  }
+  
   deleteUser(user: User):Observable<any>{
     const id = user.id;
     return this.http.delete<any>("http://localhost:8065/api/event/deleteUser/"+id);

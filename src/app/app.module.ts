@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+ 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
- 
+
 
 import { RegisterComponent } from './register/register.component';
 
@@ -130,6 +130,9 @@ import { NotificationComponent } from './notification/notification.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { NavMenuComponent } from './Shared/nav-menu/nav-menu.component';
 import { HistoriqueComponent } from './historique/historique.component';
+import { ProblemComponent } from './problem/problem.component';
+ 
+ 
 
 
 registerLocaleData(fr);
@@ -148,11 +151,14 @@ registerLocaleData(fr);
     RegisterComponent,
     NotificationComponent,
     TestComponent,
-    NavMenuComponent
+    NavMenuComponent,
+    ProblemComponent
    
   ],
   imports: [
     BrowserModule,
+    
+
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -255,8 +261,9 @@ registerLocaleData(fr);
     MatBadgeModule,
     MatDividerModule,
     MatListModule,
-    MatSelectModule
-
+    MatSelectModule,
+     
+     
     
   ],
   

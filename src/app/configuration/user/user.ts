@@ -6,5 +6,6 @@ export interface User {
      lastName : String;
     poste : String;
     equipe : String;
+    username:String;
   
   }

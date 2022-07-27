@@ -32,17 +32,8 @@
       </li>
       <li nz-submenu  nzTitle="Calendrier" nzIcon="calendar" ></li>
       <li nz-submenu  nzTitle="Historique" routerLink="/history"  nzIcon="history" >
-      <ul>
-        <li nz-menu-item nzMatchRouter>
-          <a >APSYS_dev_code</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <a>APSYS_pkb_pr4</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <a>APSYS_pr1</a>
-        </li>
-      </ul>
+        <li nz-submenu  nzTitle="Problem"routerLink="/Problem"   nzIcon="inbox" >
+
     </li>
       <li nz-submenu  nzTitle="Configuration" nzIcon="unordered-list" nzTheme="outline">
         
@@ -319,6 +310,7 @@
           <div class="modal-body">
             <div>
               <form action="" method="post" [formGroup]="eventForm" (ngSubmit)="AddNewEvent()" >
+  
            <h6>Nom:</h6>   
               <input nz-input placeholder="Nom Event"  nzSize="small" formControlName="eventName" minlength="4" maxlength="8" />
               <div style="display: inline; font-size: 12px;"  *ngIf="(eventForm.controls['eventName'].dirty || eventForm.controls['eventName'].touched) " class="text-danger">
@@ -350,6 +342,10 @@
                       </ng-template>
      
                       </div>
+                      <h6> User:</h6>
+                      <select style="width: 770px;" formControlName="username" [(ngModel)]="singleValue" >
+                        <option *ngFor="let option of userList"  >{{option.username}}</option>
+                      </select>
                   <div class="modal-footer">
                     <button  type="submit" class="btn btn-outline-secondary" [disabled]="this.eventForm.invalid "     >
                       OK
