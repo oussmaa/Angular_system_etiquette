@@ -99,19 +99,20 @@ nz-image
                   <div class="notification-ui_dd-header">
                     <h3 class="text-center">Notification</h3>
                   </div>
-                  <div class="notification-ui_dd-content" *ngFor="let not of notifications">
-                    <a  class="notification-list ">
-                        <p>{{not.text}}</p> 
-                       <p>{{ not.avatar| date: "dd MMMM yyyy" }}</p>
+                  <div   *ngFor="let not of notifications">
+                    <a  class="notification-list " style="background-color:rgb(254, 254, 254) ; height: 50px; padding: 3px;text-decoration: none;">
+                      <img src="assets/images/icon.png" alt="Snow" style="width:50px">
+                      <small style="text-decoration: none;">{{not.text}}</small> 
+                       <small>{{ not.avatar| date: "dd MMMM yyyy" }}</small>
                        <br><br>
-                       <p>{{ not.username| date: "dd MMMM yyyy" }}</p>
-
+                       <small>{{ not.username| date: "dd MMMM yyyy" }}</small>
+  
                       </a>
-
-
-
-
-
+  
+  
+  
+  
+  
                   </div>
 
                 </div>
@@ -168,7 +169,7 @@ nz-image
               <!-- Date Livrain Column -->
               <ng-container matColumnDef="date_livraison">
                 <th mat-header-cell *matHeaderCellDef>Date de Livraison</th>
-                <td mat-cell *matCellDef="let row">{{row.date_livraison}}</td>
+                <td mat-cell *matCellDef="let row">{{row.date_livraison | date : "dd.MM.y" }}</td>
               </ng-container>
             
               
@@ -176,7 +177,7 @@ nz-image
               <!-- Date Generation Column -->
               <ng-container matColumnDef="date_generation">
                 <th mat-header-cell *matHeaderCellDef>Date de Generation</th>
-                <td mat-cell *matCellDef="let row"> {{row.date_generation}}
+                <td mat-cell *matCellDef="let row"> {{row.date_Genration | date : "dd.MM.y" }}
                 </td>
               </ng-container>
             

@@ -57,6 +57,7 @@ export class CalendarComponent implements OnInit {
    eventForm!: FormGroup;
    eventName!:FormControl;
    selectedValue:any=null;
+   DateCompare:Date=new Date();
    eventend!:FormControl;
    showNumerNotif:boolean=true;
    public userList : User[]=[];
@@ -144,7 +145,8 @@ export class CalendarComponent implements OnInit {
       start: startOfDay(this.NewDateEvent),
       end: endOfDay(evend),
       color:'#FF0000',
-      username:usern
+      username:usern,
+      Genrate:new Date()
     }
     this.services.postEvent(this.NewEvent)
       .subscribe({
@@ -175,21 +177,31 @@ export class CalendarComponent implements OnInit {
     }
   }
   }
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    this.modal.open(this.modalContent,{ size: 'lg' });
-       this.NewDateEvent=date;
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] },): void {
+   
+    this.DateCompare.setHours(0,0,0);
+ 
+    if(date > this.DateCompare || date.toString() == this.DateCompare.toString())
+    {
+      this.modal.open(this.modalContent,{ size: 'lg' });
+      this.NewDateEvent=date;
 
-       if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-      this.viewDate = date;
+      if (isSameMonth(date, this.viewDate)) {
+     if (
+       (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+       events.length === 0
+     ) {
+       this.activeDayIsOpen = false;
+     } else {
+       this.activeDayIsOpen = true;
+     }
+     this.viewDate = date;
+   }
     }
+    else{
+      alert("Please selected Other Date")
+    }
+
   }
 
   eventTimesChanged({

@@ -6,6 +6,6 @@ export interface Scripts {
     date_livraison : Date;
     etat : String;
     Bloc:string;
-   
+    date_Genration:Date;
   
   }

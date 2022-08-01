@@ -55,6 +55,8 @@ export class LoginComponent implements OnInit {
          
            },
             err=>{
+              alert("Please Verif Your Password Or Username ")
+
            }
          );
     }

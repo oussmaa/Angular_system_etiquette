@@ -13,7 +13,7 @@ import { Problem } from './Problem';
 })
 export class ProblemComponent implements OnInit {
   isCollapsed = false;
-  
+  public edited = false;
   public nbNotif:number=0 ;
   public notifications: Array<Notification> = [];
   public showNotification: boolean = false ;
@@ -26,6 +26,11 @@ export class ProblemComponent implements OnInit {
   constructor(  public stompService: StompService,public router:Router,public ser:ApiService
    
    ) { }
+
+   AfficheText(ed:any )
+   {
+    ed.visible=!ed.visible;
+   }
    Logout()
    { 
      localStorage.removeItem('user');

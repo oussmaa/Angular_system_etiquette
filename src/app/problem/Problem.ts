@@ -5,5 +5,6 @@ export interface Problem {
     usernameuser : String;
     version : String;
     date : Date;
+    visible:boolean;
   
   }     

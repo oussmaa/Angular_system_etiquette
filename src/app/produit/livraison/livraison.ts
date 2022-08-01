@@ -4,6 +4,6 @@ export interface Livraison {
     version : String;
     date_livraison : Date;
     etat : String;
-   
+    date_Genration:Date;
   
   }

@@ -44,7 +44,7 @@ export class ScriptsComponent implements OnInit {
   Version:any;
   test:boolean=false;
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['version', 'date_livraison','etat', 'action','Alert_Problem'  ];
+  displayedColumns: string[] = ['version', 'date_livraison','date_generation','etat', 'action','Alert_Problem'  ];
   public nbNotif:number=0 ;
   public notifications: Array<Notification> = [];
   public showNotification: boolean = false ;

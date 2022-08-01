@@ -101,11 +101,12 @@
                       <h3 class="text-center">Notification</h3>
                     </div>
                     <div class="notification-ui_dd-content" *ngFor="let not of notifications">
-                      <a  class="notification-list ">
-                          <p>{{not.text}}</p> 
-                         <p>{{ not.avatar| date: "dd MMMM yyyy" }}</p>
+                      <a  class="notification-list " style="background-color:rgb(254, 254, 254) ; height: 50px; padding: 3px;text-decoration: none;">
+                        <img src="assets/images/icon.png" alt="Snow" style="width:50px">
+                        <small style="text-decoration: none;">{{not.text}}</small> 
+                         <small>{{ not.avatar| date: "dd MMMM yyyy" }}</small>
                          <br><br>
-                         <p>{{ not.username| date: "dd MMMM yyyy" }}</p>
+                         <small>{{ not.username| date: "dd MMMM yyyy" }}</small>
 
                         </a>
  
@@ -120,14 +121,17 @@
                   </div>
         </div>
       </nz-header>
-      <nz-content>
+      <nz-content style="background-color:white ;">
+ 
         <div class="row" >
-          <div class="column"*ngFor="let prob of ProblemList;" >
-            <img src="assets/images/problem.jpeg" alt="Snow" style="width:100%">
+          <div class="column" *ngFor="let prob of ProblemList;" >
+            <img src="assets/images/alert.png" alt="Snow" style="width:100%">
             <h6 style="text-decoration: none;">{{prob.object}}</h6>
-            <p class="tm-pt-10" style="color:white ;">
+            
+            <p *ngIf="prob.visible" class="tm-pt-10" style="color:rgb(11, 11, 11) ;">
               {{prob.text}}
            </p>
+           <small (click)="AfficheText(prob)" style="text-decoration: underline;color:blue">Affiche</small>
            <div class="d-flex justify-content-between tm-pt-45">
             <span class="tm-color-primary" style="  text-transform: uppercase;
             color: #e30f1d;">{{prob.usernameuser}}</span>
