@@ -4,5 +4,7 @@ export interface Calendar {
 	color : String;
 	start : Date ;
 	end : Date ;
+	dateDebutScript : Date ;
+	datefinScript : Date ;
 
   }

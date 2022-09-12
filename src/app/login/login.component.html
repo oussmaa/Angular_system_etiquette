@@ -35,17 +35,12 @@
 
 					</div>
           <div style="display: block; font-size: 15px; color:rgb(255, 205, 205)"  *ngIf="(loginForm.controls['username'].dirty || loginForm.controls['username'].touched) " >
-            <ng-container *ngIf="loginForm.controls['username'].errors?.['required'] ; then TemplateUsernameRequired; else TemplateUsernameInvalid"></ng-container>
+            <ng-container *ngIf="loginForm.controls['username'].errors?.['required'] ; then TemplateUsernameRequired;    "></ng-container>
             <ng-template #TemplateUsernameRequired>
 
               Username is required
             </ng-template>
-            <ng-template #TemplateUsernameInvalid>
-              <ng-container *ngIf="loginForm.controls['username'].errors?.['pattern']">
-                Username must be at least 5 characters long and contain only letters,
-                 numbers, and underscores.
-              </ng-container>
-            </ng-template>
+ 
 
           </div>
 					<div class="input-group form-group">

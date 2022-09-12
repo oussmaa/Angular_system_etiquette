@@ -38,6 +38,7 @@ export class HistoriqueComponent implements OnInit {
   isCollapsed = false;
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = ['version', 'date_livraison' ];
+   
  
   public notifications: Array<Notification> = [];
   public showNotification: boolean = false ;

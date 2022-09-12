@@ -15,6 +15,7 @@ import { NgToastService } from 'ng-angular-popup';
 
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -44,12 +45,13 @@ export class ScriptsComponent implements OnInit {
   Version:any;
   test:boolean=false;
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['version', 'date_livraison','date_generation','etat', 'action','Alert_Problem'  ];
+  displayedColumns: string[] = ['version', 'date_livraison','date_generation','tt','ee','etat', 'action','Alert_Problem'  ];
   public nbNotif:number=0 ;
   public notifications: Array<Notification> = [];
   public showNotification: boolean = false ;
    public hidden = false;
    user:any;
+   refresh = new Subject<void>();
    imageSrc:any;
    public scriptsList : Scripts[]=[];
    date = null;
@@ -71,7 +73,8 @@ export class ScriptsComponent implements OnInit {
       object: new FormControl(),
       description: new FormControl()
   });
- 
+
+
   this.ProblemForm = this.formBuilder.group({
      
     object : ['',Validators.required ],
@@ -79,6 +82,13 @@ export class ScriptsComponent implements OnInit {
  
     
   })
+  }
+  changetTimefin(event:any)
+  {
+ 
+      console.log(event.date);
+    
+ 
   }
   getImage()
   {

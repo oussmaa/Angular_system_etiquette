@@ -41,7 +41,8 @@ export class TestComponent implements OnInit {
 
   isCollapsed = false;
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['version', 'date_livraison','date_generation','etat', 'action'  ];
+  displayedColumns: string[] = ['version', 'date_livraison','date_generation','tt','ee','etat', 'action'  ];
+ 
   public nbNotif:number=0 ;
   public notifications: Array<Notification> = [];
   public showNotification: boolean = false ;

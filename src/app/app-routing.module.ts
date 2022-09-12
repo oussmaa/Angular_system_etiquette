@@ -4,8 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ProfilComponent } from './configuration/profil/profil.component';
 import { UserComponent } from './configuration/user/user.component';
-import { LoginComponent } from './login/login.component';
- 
+  
 import { LivraisonComponent } from './produit/livraison/livraison.component';
 import { ProduitComponent } from './produit/produit.component';
 import { ScriptsComponent } from './produit/scripts/scripts.component';
@@ -15,6 +14,7 @@ import { TestComponent } from './produit/test/test.component';
 import { AutGardGuard } from './Shared/aut-gard.guard';
 import { HistoriqueComponent } from './historique/historique.component';
 import { ProblemComponent } from './problem/problem.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [

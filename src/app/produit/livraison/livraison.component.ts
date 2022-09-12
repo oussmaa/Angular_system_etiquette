@@ -43,7 +43,8 @@ export class LivraisonComponent implements OnInit {
   isCollapsed = false;
   public nbNotif:number=0 ;
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['version', 'date_livraison','date_generation','etat', 'action'  ];
+  displayedColumns: string[] = ['version', 'date_livraison','date_generation','tt','ee','etat', 'action'  ];
+ 
  
   public notifications: Array<Notification> = [];
   public showNotification: boolean = false ;

@@ -129,17 +129,12 @@
                 <input nz-input formControlName="firstName" id="firstName" />
               </nz-form-control> 
               <div style="display: block; font-size: 15px; color:rgb(236, 23, 23)"  *ngIf="(registerForm.controls['firstName'].dirty || registerForm.controls['firstName'].touched) " >
-                <ng-container *ngIf="registerForm.controls['firstName'].errors?.['required'] ; then TemplatefirstNameRequired; else TemplatefirstNameInvalid"></ng-container>
+                <ng-container *ngIf="registerForm.controls['firstName'].errors?.['required'] ; then TemplatefirstNameRequired;    "></ng-container>
                 <ng-template #TemplatefirstNameRequired>
           
                   firstName is required
                 </ng-template>
-                <ng-template #TemplatefirstNameInvalid>
-                  <ng-container *ngIf="registerForm.controls['firstName'].errors?.['pattern']">
-                    firstName must be at least 5 characters long and contain only letters,
-                     numbers, and underscores.
-                  </ng-container>
-                </ng-template>
+ 
           
               </div>
             </nz-form-item>
@@ -149,17 +144,12 @@
                 <input nz-input formControlName="lastname" id="lastName" />
               </nz-form-control> 
               <div style="display: block; font-size: 15px; color:rgb(236, 23, 23)"  *ngIf="(registerForm.controls['lastname'].dirty || registerForm.controls['lastname'].touched) " >
-                <ng-container *ngIf="registerForm.controls['lastname'].errors?.['required'] ; then TemplateLastnameRequired; else TemplateLastnameInvalid"></ng-container>
+                <ng-container *ngIf="registerForm.controls['lastname'].errors?.['required'] ; then TemplateLastnameRequired;    "></ng-container>
                 <ng-template #TemplateLastnameRequired>
           
                   Lastname is required
                 </ng-template>
-                <ng-template #TemplateLastnameInvalid>
-                  <ng-container *ngIf="registerForm.controls['lastname'].errors?.['pattern']">
-                    Lastname must be at least 5 characters long and contain only letters,
-                     numbers, and underscores.
-                  </ng-container>
-                </ng-template>
+ 
           
               </div>
           
@@ -191,17 +181,12 @@
                 <input nz-input formControlName="username" id="username" />
               </nz-form-control> 
               <div style="display: block; font-size: 15px; color:rgb(225, 19, 19)"  *ngIf="(registerForm.controls['username'].dirty || registerForm.controls['username'].touched) " >
-                <ng-container *ngIf="registerForm.controls['username'].errors?.['required'] ; then TemplateUsernameRequired; else TemplateUsernameInvalid"></ng-container>
+                <ng-container *ngIf="registerForm.controls['username'].errors?.['required'] ; then TemplateUsernameRequired;    "></ng-container>
                 <ng-template #TemplateUsernameRequired>
           
                   Username is required
                 </ng-template>
-                <ng-template #TemplateUsernameInvalid>
-                  <ng-container *ngIf="registerForm.controls['username'].errors?.['pattern']">
-                    Username must be at least 5 characters long and contain only letters,
-                     numbers, and underscores.
-                  </ng-container>
-                </ng-template>
+ 
           
               </div>
             </nz-form-item>

@@ -5,5 +5,7 @@ export interface Livraison {
     date_livraison : Date;
     etat : String;
     date_Genration:Date;
+    dateDebutScript : Date ;
+    datefinScript : Date ;
   
   }

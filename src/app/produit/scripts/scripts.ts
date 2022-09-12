@@ -7,5 +7,7 @@ export interface Scripts {
     etat : String;
     Bloc:string;
     date_Genration:Date;
+    dateDebutScript : Date ;
+    datefinScript : Date ;
   
   }

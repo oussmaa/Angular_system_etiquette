@@ -161,17 +161,12 @@
                 </div>
                 <div>
                   <div style="display: block; font-size: 15px; color:rgb(246, 15, 15)"  *ngIf="(registerForm.controls['name'].dirty || registerForm.controls['name'].touched) " >
-                    <ng-container *ngIf="registerForm.controls['name'].errors?.['required'] ; then TemplateNameRequired; else TemplateNameInvalid"></ng-container>
+                    <ng-container *ngIf="registerForm.controls['name'].errors?.['required'] ; then TemplateNameRequired;  "></ng-container>
                     <ng-template #TemplateNameRequired>
             
                       Name is required
                     </ng-template>
-                    <ng-template #TemplateNameInvalid>
-                      <ng-container *ngIf="registerForm.controls['name'].errors?.['pattern']">
-                        name must be at least 5 characters long and contain only letters,
-                         numbers, and underscores.
-                      </ng-container>
-                    </ng-template>
+    
             
                   </div>
               </div>
@@ -187,17 +182,12 @@
                   />
                 </div>
                 <div style="display: block; font-size: 15px; color:rgb(240, 0, 0)"  *ngIf="(registerForm.controls['lastname'].dirty || registerForm.controls['lastname'].touched) " >
-                  <ng-container *ngIf="registerForm.controls['lastname'].errors?.['required'] ; then TemplateLastnameRequired; else TemplateLastnameInvalid"></ng-container>
+                  <ng-container *ngIf="registerForm.controls['lastname'].errors?.['required'] ; then TemplateLastnameRequired; "></ng-container>
                   <ng-template #TemplateLastnameRequired>
             
                     Lastname is required
                   </ng-template>
-                  <ng-template #TemplateLastnameInvalid>
-                    <ng-container *ngIf="registerForm.controls['lastname'].errors?.['pattern']">
-                      Lastname must be at least 5 characters long and contain only letters,
-                       numbers, and underscores.
-                    </ng-container>
-                  </ng-template>
+         
             
                 </div>
               </div>
@@ -216,17 +206,12 @@
                   />
                 </div>
                 <div style="display: block; font-size: 15px; color:rgb(246, 15, 15)"  *ngIf="(registerForm.controls['Equipe'].dirty || registerForm.controls['Equipe'].touched) " >
-                  <ng-container *ngIf="registerForm.controls['Equipe'].errors?.['required'] ; then TemplateNameRequired; else TemplateNameInvalid"></ng-container>
+                  <ng-container *ngIf="registerForm.controls['Equipe'].errors?.['required'] ; then TemplateNameRequired; "></ng-container>
                   <ng-template #TemplateNameRequired>
           
                     Equipe is required
                   </ng-template>
-                  <ng-template #TemplateNameInvalid>
-                    <ng-container *ngIf="registerForm.controls['Equipe'].errors?.['pattern']">
-                      Equipe must be at least 5 characters long and contain only letters,
-                       numbers, and underscores.
-                    </ng-container>
-                  </ng-template>
+ 
           
                 </div>
               </div>
@@ -241,17 +226,12 @@
                   />
                 </div>
                 <div style="display: block; font-size: 15px; color:rgb(246, 15, 15)"  *ngIf="(registerForm.controls['Post'].dirty || registerForm.controls['Post'].touched) " >
-                  <ng-container *ngIf="registerForm.controls['Post'].errors?.['required'] ; then TemplateNameRequired; else TemplateNameInvalid"></ng-container>
+                  <ng-container *ngIf="registerForm.controls['Post'].errors?.['required'] ; then TemplateNameRequired; "></ng-container>
                   <ng-template #TemplateNameRequired>
           
                     Post is required
                   </ng-template>
-                  <ng-template #TemplateNameInvalid>
-                    <ng-container *ngIf="registerForm.controls['Post'].errors?.['pattern']">
-                      Post must be at least 5 characters long and contain only letters,
-                       numbers, and underscores.
-                    </ng-container>
-                  </ng-template>
+ 
           
                 </div>
               </div>

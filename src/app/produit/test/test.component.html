@@ -180,7 +180,14 @@ nz-image
                 <td mat-cell *matCellDef="let row"> {{row.date_Genration | date : "dd.MM.y" }}
                 </td>
               </ng-container>
-            
+              <ng-container matColumnDef="tt">
+                <th mat-header-cell *matHeaderCellDef>Date de Debut Script</th>
+                <td mat-cell *matCellDef="let row">{{row.dateDebutScript | date : "dd.MM.y" }}</td>
+              </ng-container>
+              <ng-container matColumnDef="ee">
+                <th mat-header-cell *matHeaderCellDef>Date de fin Script</th>
+                <td mat-cell *matCellDef="let row">{{row.datefinScript | date : "dd.MM.y" }}<br>
+              </ng-container>
               <!-- Etat Column -->
               <ng-container matColumnDef="etat">
                 <th mat-header-cell *matHeaderCellDef>Etat</th>
