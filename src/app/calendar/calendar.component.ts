@@ -113,15 +113,13 @@ export class CalendarComponent implements OnInit {
       eventend  :new FormControl(),
       username  :new FormControl(),
       dateDebutScript  :new FormControl(),
-      datefinScript  :new FormControl(),
-    });
+     });
     this.eventForm = this.fb.group({
-      eventName: ['', [Validators.required,Validators.maxLength(8)]],
+      eventName: ['', [Validators.required, ]],
       eventend: ['', [Validators.required ]],
       username: ['', [Validators.required ]],
       dateDebutScript: ['', [Validators.required ]],
-      datefinScript: ['', [Validators.required ]],
-    })
+     })
   }
  
    
@@ -143,11 +141,10 @@ export class CalendarComponent implements OnInit {
       let evend=this.eventForm.controls['eventend'].value;
       let usern=this.eventForm.controls['username'].value;
       let dateDebutScript=this.eventForm.controls['dateDebutScript'].value;
-      let datefinScript=this.eventForm.controls['datefinScript'].value;
-
+ 
     this.NewEvent ={
       dateDebutScript:dateDebutScript,
-      datefinScript:datefinScript,
+      datefinScript:dateDebutScript,
       title: ev,
       start: startOfDay(this.NewDateEvent),
       end: endOfDay(evend),

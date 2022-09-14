@@ -37,8 +37,14 @@ export class ScriptsService {
     const id = scripts.id;
     return this.http.delete<any>("http://localhost:8080/deleteScripts/"+id);
   } 
+  updateTest(date:any, id:any):Observable<any>{
+    return this.http.put<any>("http://localhost:8065/api/script/updatetest/"+id,date)
 
+}
+  updateScript(date:any, id:any):Observable<any>{
+    return this.http.put<any>("http://localhost:8065/api/script/updatescripts/"+id,date)
 
+}
   updateUser(id: number, data:any):Observable<any>{
     return this.http.put<any>("http://localhost:8080/updateUser/",data)}
     

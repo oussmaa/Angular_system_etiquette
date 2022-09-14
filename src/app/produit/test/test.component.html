@@ -121,7 +121,34 @@ nz-image
       </div>
     </nz-header>
     <nz-content> 
-       
+      <nz-modal [(nzVisible)]="UpdateDate" nzTitle=" Update Date de fin Script" (nzOnCancel)="handleCancelUpdate()" (nzOnOk)="handleOkUpdate()">
+        <ng-container *nzModalContent>
+        <form [formGroup]="dateform">
+    
+          <nz-form-item>
+            <nz-form-label >Date de fin Script</nz-form-label>
+             
+            <input
+            class="form-control"
+            type="text"
+            mwlFlatpickr
+            [altInput]="true"
+            formControlName="date"  
+            [convertModelValue]="true"
+            [enableTime]="true"
+            dateFormat="Y-m-dTH:i"
+            altFormat="F j, Y H:i"
+            placeholder="Not set"
+          />
+          </nz-form-item>
+
+         
+
+        </form>
+        
+
+          </ng-container>
+      </nz-modal>
       <nz-modal [(nzVisible)]="isVisible" nzTitle="Add Livraison" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
         <ng-container *nzModalContent>
         <form [formGroup]="LivraisonForm">
@@ -181,12 +208,19 @@ nz-image
                 </td>
               </ng-container>
               <ng-container matColumnDef="tt">
-                <th mat-header-cell *matHeaderCellDef>Date de Debut Script</th>
-                <td mat-cell *matCellDef="let row">{{row.dateDebutScript | date : "dd.MM.y" }}</td>
+                <th mat-header-cell *matHeaderCellDef>Date de Debut Test</th>
+                <td mat-cell *matCellDef="let row">
+
+                  {{row.datefinScript | date : "dd.MM.y" }} <br>
+                  
+                </td>
               </ng-container>
               <ng-container matColumnDef="ee">
-                <th mat-header-cell *matHeaderCellDef>Date de fin Script</th>
-                <td mat-cell *matCellDef="let row">{{row.datefinScript | date : "dd.MM.y" }}<br>
+                <th mat-header-cell *matHeaderCellDef>Date de fin Test</th>
+                <td mat-cell *matCellDef="let row">                 
+              <button mat-icon-button  (click)="changetTimefin(row.id)">Edit</button>
+
+                  {{row.datefinScript | date : "dd.MM.y" }}<br>
               </ng-container>
               <!-- Etat Column -->
               <ng-container matColumnDef="etat">

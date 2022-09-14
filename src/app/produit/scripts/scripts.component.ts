@@ -16,6 +16,7 @@ import { NgToastService } from 'ng-angular-popup';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import tr from 'date-fns/esm/locale/tr/index.js';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -36,16 +37,18 @@ export class ScriptsComponent implements OnInit {
   visibleProblem=false;
   LivraisonForm !: FormGroup;
   ProblemForm!:FormGroup;
+  dateform!:FormGroup;
   isCollapsed = false;
   etat!:FormControl;
   registerForm!:FormGroup;
   script:any;
   Permission:any;
+  UpdateDate=false;
   showNumerNotif:boolean=true;
   Version:any;
   test:boolean=false;
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['version', 'date_livraison','date_generation','tt','ee','etat', 'action','Alert_Problem'  ];
+  displayedColumns: string[] = ['version','tt','ee','etat', 'action','Alert_Problem' ];
   public nbNotif:number=0 ;
   public notifications: Array<Notification> = [];
   public showNotification: boolean = false ;
@@ -56,8 +59,9 @@ export class ScriptsComponent implements OnInit {
    public scriptsList : Scripts[]=[];
    date = null;
    selectede :string='';
-
-   isEnglish = false;
+   completeDate: any;
+   IdScript:any;
+    isEnglish = false;
    etats = [
     {value: 'En cours', viewValue: 'En cours'},
     {value: 'Terminer', viewValue: 'Terminer'},
@@ -67,14 +71,16 @@ export class ScriptsComponent implements OnInit {
    @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private toast: NgToastService,public ser:ApiService, private formBuilder : FormBuilder ,public router:Router, public stompService: StompService, private api : ScriptsService,private i18n: NzI18nService) {            
- 
- 
-    this.ProblemForm = new FormGroup({
-      object: new FormControl(),
-      description: new FormControl()
-  });
+  
 
+  this.ProblemForm = new FormGroup({
+    object: new FormControl(),
+    description: new FormControl()
+});
 
+this.dateform=new FormGroup({
+  date: new FormControl(),
+ });
   this.ProblemForm = this.formBuilder.group({
      
     object : ['',Validators.required ],
@@ -83,12 +89,37 @@ export class ScriptsComponent implements OnInit {
     
   })
   }
-  changetTimefin(event:any)
+  changetTimefin(id:any)
   {
- 
-      console.log(event.date);
+    this.IdScript=id;
+    this.UpdateDate = true;
     
  
+  }
+  handleCancelUpdate()
+  {
+    this.UpdateDate = false;
+
+  }
+  handleOkUpdate()
+  {
+    
+    var object=this.dateform.controls['date'].value;
+
+ 
+this.api.updateScript(object,this.IdScript)
+.subscribe({
+  next:(res)=>{
+    
+    this.dateform.reset();
+    this.getAllScripts();
+    this.UpdateDate=false;
+
+  },
+  error:()=>{
+    alert("Ops Error please ty again")
+  }
+})
   }
   getImage()
   {
@@ -113,7 +144,7 @@ export class ScriptsComponent implements OnInit {
 console.log(te)
    this.getAllScripts();
    this.test=true;
-
+ 
     this.LivraisonForm = this.formBuilder.group({
      
       version : ['',Validators.required,Validators.minLength(6),],

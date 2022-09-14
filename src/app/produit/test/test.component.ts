@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
  
 import {MatPaginator} from '@angular/material/paginator';
@@ -42,19 +42,27 @@ export class TestComponent implements OnInit {
   isCollapsed = false;
   dataSource!: MatTableDataSource<any>;
   displayedColumns: string[] = ['version', 'date_livraison','date_generation','tt','ee','etat', 'action'  ];
- 
+  UpdateDate=false;
+
   public nbNotif:number=0 ;
   public notifications: Array<Notification> = [];
   public showNotification: boolean = false ;
    public hidden = false;
    public scriptsList : Scripts[]=[];
    date = null;
+   IdScript:any;
+   dateform!:FormGroup;
    isEnglish = false;
    user:any;
    imageSrc:any;
    @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private toast: NgToastService,public ser:ApiService, private formBuilder : FormBuilder ,public router:Router,  public stompService: StompService, private api : ScriptsService,private i18n: NzI18nService) { }
+  constructor(private toast: NgToastService,public ser:ApiService, private formBuilder : FormBuilder ,public router:Router,  public stompService: StompService, private api : ScriptsService,private i18n: NzI18nService) {
+
+    this.dateform=new FormGroup({
+      date: new FormControl(),
+     });
+   }
   getImage()
   {
     this.user = JSON.parse(localStorage.getItem('user') || '{}'); 
@@ -62,6 +70,34 @@ export class TestComponent implements OnInit {
   
 
   } 
+  changetTimefin(id:any)
+  {
+    this.IdScript=id;
+    this.UpdateDate = true;
+  }
+  handleCancelUpdate()
+  {
+   this.UpdateDate = false;
+
+  }
+handleOkUpdate(){
+    
+var object=this.dateform.controls['date'].value;
+
+this.api.updateTest(object,this.IdScript)
+.subscribe({
+  next:(res)=>{
+    
+    this.dateform.reset();
+    this.getAllScripts();
+    this.UpdateDate=false;
+
+  },
+  error:()=>{
+    alert("Ops Error please ty again")
+  }
+})
+  }
   get5LastNotifications() {
     this.ser.getNotif().subscribe(res => {
       this.notifications = res;
@@ -137,7 +173,7 @@ export class TestComponent implements OnInit {
     }
   getAllScripts(){
     this.api.getScriptsB()
-    .subscribe((res)=>{
+     .subscribe((res)=>{
       
     this.dataSource = new MatTableDataSource(res);
     this.dataSource.paginator = this.paginator;

@@ -312,8 +312,8 @@
             <div>
               <form action="" method="post" [formGroup]="eventForm" (ngSubmit)="AddNewEvent()" >
   
-           <h6>Nom:</h6>   
-              <input nz-input placeholder="Nom Event"  nzSize="small" formControlName="eventName" minlength="4" maxlength="8" />
+           <h6>Nam:</h6>   
+              <input nz-input placeholder="Nom Event"  nzSize="small" formControlName="eventName"   />
               <div style="display: inline; font-size: 12px;"  *ngIf="(eventForm.controls['eventName'].dirty || eventForm.controls['eventName'].touched) " class="text-danger">
               <ng-container *ngIf="eventForm.controls['eventName'].errors?.['required'] ; then TemplateEventRequired "></ng-container>
                   <ng-template #TemplateEventRequired>
@@ -364,28 +364,8 @@
                          </ng-template>
         
                          </div>
-                      <h6>  Date Fin Script: </h6>
-
-                      <input
-                      class="form-control"
-                      type="text"
-                      mwlFlatpickr
-                      formControlName="datefinScript"
-                      (ngModelChange)="refresh.next()"
-                      [altInput]="true"
-                      [convertModelValue]="true"
-                      [enableTime]="true"
-                      dateFormat="Y-m-dTH:i"
-                      altFormat="F j, Y H:i"
-                      placeholder="Not set"
-                    />
-                    <div style="display: inline; font-size: 12px;"  *ngIf="(eventForm.controls['datefinScript'].dirty || eventForm.controls['datefinScript'].touched) " class="text-danger">
-                     <ng-container *ngIf="eventForm.controls['datefinScript'].errors?.['required'] ; then TemplateEventendRequired;   "></ng-container>
-                         <ng-template #TemplateEventendRequired>
-                           Event date is required .
-                         </ng-template>
-        
-                         </div>
+                       
+ 
                       <h6> User:</h6>
                       <select style="width: 770px;" formControlName="username" [(ngModel)]="singleValue" >
                         <option *ngFor="let option of userList"  >{{option.username}}</option>
